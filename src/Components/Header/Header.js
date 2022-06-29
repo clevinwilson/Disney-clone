@@ -1,7 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
+import {signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { auth,provider } from '../Firebase/firebase';
 
 function Header(props) {
+    const handleAuth=()=>{
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                // This gives you a Google Access Token. You can use it to access the Google API.
+                const credential = GoogleAuthProvider.credentialFromResult(result);
+                const token = credential.accessToken;
+                // The signed-in user info.
+                const user = result.user;
+                console.log(user);
+                // ...
+            })
+    }
     return (
         <Nav>
             <LogoContainer>
@@ -34,7 +48,7 @@ function Header(props) {
                 </a>
             </NavMenu>
             <LoginBtnContainer>
-                <LoginBtn>Login</LoginBtn>
+                <LoginBtn onClick={handleAuth}>Login</LoginBtn>
             </LoginBtnContainer>
         </Nav>
     )
