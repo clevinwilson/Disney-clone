@@ -1,10 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
-import {signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { auth,provider } from '../Firebase/firebase';
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { auth, provider } from '../Firebase/firebase';
+import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router-dom';
+import { setUserLoginDetails, setUserEmail, setUserName, setUserPhoto } from '../../features/user/userSlice'
 
 function Header(props) {
-    const handleAuth=()=>{
+    const dispatch = useDispatch();
+    const username = useSelector(setUserName);
+    const userphoto = useSelector(setUserPhoto)
+    function setUser(user) {
+        dispatch(
+            setUserLoginDetails({
+                name: user.displayName,
+                email: user.email,
+                photo: user.photoURL,
+            })
+        )
+    }
+    const handleAuth = () => {
         signInWithPopup(auth, provider)
             .then((result) => {
                 // This gives you a Google Access Token. You can use it to access the Google API.
@@ -12,7 +27,7 @@ function Header(props) {
                 const token = credential.accessToken;
                 // The signed-in user info.
                 const user = result.user;
-                console.log(user);
+                setUser(result.user)
                 // ...
             })
     }
@@ -21,34 +36,39 @@ function Header(props) {
             <LogoContainer>
                 <Logo src='images/logo.svg' />
             </LogoContainer>
-            <NavMenu>
-                <a className='haaa' href='/home'>
-                    <img src="images/home-icon.svg" alt="" />
-                    <span>HOME</span>
-                </a>
-                <a href='/home'>
-                    <img src="images/search-icon.svg" alt="" />
-                    <span>SEARCH</span>
-                </a>
-                <a href='/home'>
-                    <img src="images/watchlist-icon.svg" alt="" />
-                    <span>WATCHLIST</span>
-                </a>
-                <a href='/home'>
-                    <img src="images/original-icon.svg" alt="" />
-                    <span>ORIGINALS</span>
-                </a>
-                <a href='/home'>
-                    <img src="images/movie-icon.svg" alt="" />
-                    <span>MOVIES</span>
-                </a>
-                <a href='/home'>
-                    <img src="images/series-icon.svg" alt="" />
-                    <span>SERIES</span>
-                </a>
-            </NavMenu>
+            {
+                !username ?
+                    <></>
+                    :
+                    <NavMenu>
+                        <a className='haaa' href='/home'>
+                            <img src="images/home-icon.svg" alt="" />
+                            <span>HOME</span>
+                        </a>
+                        <a href='/home'>
+                            <img src="images/search-icon.svg" alt="" />
+                            <span>SEARCH</span>
+                        </a>
+                        <a href='/home'>
+                            <img src="images/watchlist-icon.svg" alt="" />
+                            <span>WATCHLIST</span>
+                        </a>
+                        <a href='/home'>
+                            <img src="images/original-icon.svg" alt="" />
+                            <span>ORIGINALS</span>
+                        </a>
+                        <a href='/home'>
+                            <img src="images/movie-icon.svg" alt="" />
+                            <span>MOVIES</span>
+                        </a>
+                        <a href='/home'>
+                            <img src="images/series-icon.svg" alt="" />
+                            <span>SERIES</span>
+                        </a>
+                    </NavMenu>
+            }
             <LoginBtnContainer>
-                <LoginBtn onClick={handleAuth}>Login</LoginBtn>
+                {!username ? <LoginBtn onClick={handleAuth}>Login</LoginBtn> : <>{username}</>}
             </LoginBtnContainer>
         </Nav>
     )
