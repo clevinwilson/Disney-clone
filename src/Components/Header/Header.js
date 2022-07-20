@@ -1,13 +1,14 @@
-import React from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth, provider } from '../Firebase/firebase';
 import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { setUserLoginDetails, setUserEmail, setUserName, setUserPhoto } from '../../features/user/userSlice'
 
 function Header(props) {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const username = useSelector(setUserName);
     const userphoto = useSelector(setUserPhoto)
     function setUser(user) {
@@ -31,6 +32,15 @@ function Header(props) {
                 // ...
             })
     }
+    useEffect(() => {
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                setUser(user);
+                navigate('/home')
+            }
+        })
+    }, [username])
+
     return (
         <Nav>
             <LogoContainer>
@@ -68,21 +78,21 @@ function Header(props) {
                     </NavMenu>
             }
             <LoginBtnContainer>
-                {!username ? 
-                <LoginBtn onClick={handleAuth}>Login</LoginBtn> 
-                
-                : 
-            
-                <UserImage src={userphoto}  />
-                 
-                
+                {!username ?
+                    <LoginBtn onClick={handleAuth}>Login</LoginBtn>
+
+                    :
+
+                    <UserImage src={userphoto} />
+
+
                 }
-                
+
             </LoginBtnContainer>
         </Nav>
     )
 }
-const UserImage=styled.img`
+const UserImage = styled.img`
 height: 40px;
 width: 40px;
 border-radius: 50%;
