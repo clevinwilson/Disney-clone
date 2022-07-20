@@ -68,11 +68,23 @@ function Header(props) {
                     </NavMenu>
             }
             <LoginBtnContainer>
-                {!username ? <LoginBtn onClick={handleAuth}>Login</LoginBtn> : <>{username}</>}
+                {!username ? 
+                <LoginBtn onClick={handleAuth}>Login</LoginBtn> 
+                
+                : 
+            
+                <UserImage src={userphoto}  />
+                 
+                
+                }
+                
             </LoginBtnContainer>
         </Nav>
     )
 }
+const UserImage=styled.img`
+
+`
 
 const Nav = styled.div`
 display:flex;
