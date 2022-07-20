@@ -83,7 +83,9 @@ function Header(props) {
     )
 }
 const UserImage=styled.img`
-
+height: 40px;
+width: 40px;
+border-radius: 50%;
 `
 
 const Nav = styled.div`
