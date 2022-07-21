@@ -82,16 +82,46 @@ function Header(props) {
                     <LoginBtn onClick={handleAuth}>Login</LoginBtn>
 
                     :
-
-                    <UserImage src={userphoto} />
-
-
+                    <SignOut>
+                        <UserImage src={userphoto} />
+                        <DropDown ><span>Sign Out</span></DropDown>
+                    </SignOut>
                 }
 
             </LoginBtnContainer>
         </Nav>
     )
 }
+
+const DropDown = styled.div`
+    top: 48px;
+    position: absolute;
+    right: 0px;
+    background: rgb(19,19,19);
+    padding: 10px;
+    border: 1px solid rgb(151,151,151,0.34);
+    border-radius: 4px;
+    letter-spacing: 2px;
+    font-size:14px;
+    opacity:0;
+    width: 100px;
+
+`
+const SignOut=styled.div`
+position:relative;
+display:flex;
+height: 48px;
+width: 48px;
+justify-content: center;
+align-items: center;
+&:hover{
+    ${DropDown}{
+        opacity:1;
+        transition-duration:1s;
+    }
+}
+`
+
 const UserImage = styled.img`
 height: 40px;
 width: 40px;
