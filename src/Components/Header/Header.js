@@ -4,7 +4,8 @@ import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
 import { auth, provider } from '../Firebase/firebase';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
-import { setUserLoginDetails, setUserEmail, setUserName, setUserPhoto } from '../../features/user/userSlice'
+import { getAuth, signOut } from "firebase/auth";
+import { setUserLoginDetails, setSignoutState, setUserEmail, setUserName, setUserPhoto } from '../../features/user/userSlice'
 
 function Header(props) {
     const dispatch = useDispatch();
@@ -21,16 +22,28 @@ function Header(props) {
         )
     }
     const handleAuth = () => {
-        signInWithPopup(auth, provider)
-            .then((result) => {
-                // This gives you a Google Access Token. You can use it to access the Google API.
-                const credential = GoogleAuthProvider.credentialFromResult(result);
-                const token = credential.accessToken;
-                // The signed-in user info.
-                const user = result.user;
-                setUser(result.user)
-                // ...
-            })
+        if(!username){
+            signInWithPopup(auth, provider)
+                .then((result) => {
+                    // This gives you a Google Access Token. You can use it to access the Google API.
+                    const credential = GoogleAuthProvider.credentialFromResult(result);
+                    const token = credential.accessToken;
+                    // The signed-in user info.
+                    const user = result.user;
+                    setUser(result.user)
+                    // ...
+                })
+        }else{
+
+                const auth = getAuth();
+                signOut(auth).then(() => {
+                    dispatch(setSignoutState());
+                    navigate('/');
+                }).catch((error) => {
+                    // An error happened.
+                });
+           
+        }
     }
     useEffect(() => {
         auth.onAuthStateChanged(async (user) => {
@@ -84,7 +97,7 @@ function Header(props) {
                     :
                     <SignOut>
                         <UserImage src={userphoto} />
-                        <DropDown ><span>Sign Out</span></DropDown>
+                        <DropDown onClick={handleAuth} ><span>Sign Out</span></DropDown>
                     </SignOut>
                 }
 
