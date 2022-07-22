@@ -32,7 +32,6 @@ function Home() {
           })
         )
       });
-      console.log(recommends);
     })
 
 
