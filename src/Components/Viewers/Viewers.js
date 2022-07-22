@@ -60,6 +60,7 @@ overflow:hidden;
 transition:all 250ms cubic-bezier(0.25,0.46,0.45,0.94);
 border:3px solid rgba(249,249,249,0.1);
 cursor:pointer;
+box-shadow: 2px 6px 10px #000000;
 img{
     inset:0;
     height:100%;
