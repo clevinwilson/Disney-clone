@@ -5,13 +5,13 @@ import { auth, provider } from '../Firebase/firebase';
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import { getAuth, signOut } from "firebase/auth";
-import { setUserLoginDetails, setSignoutState, setUserEmail, setUserName, setUserPhoto } from '../../features/user/userSlice'
+import { setUserLoginDetails, setSignoutState, selectUserEmail, selectUserName, selectUserPhoto } from '../../features/user/userSlice'
 
 function Header(props) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const username = useSelector(setUserName);
-    const userphoto = useSelector(setUserPhoto)
+    const username = useSelector(selectUserName);
+    const userphoto = useSelector(selectUserPhoto)
     function setUser(user) {
         dispatch(
             setUserLoginDetails({
