@@ -16,7 +16,7 @@ function Home() {
   const dispatch = useDispatch();
   const userName = useSelector(selectUserName);
   let recommends = [];
-  const newDisney = [];
+  let newDisneys = [];
 
   useEffect(() => {
     getDocs(collection(db, "movies")).then((querySnapshot) => {
@@ -25,10 +25,14 @@ function Home() {
           case 'recommend':
             recommends = [...recommends, { id: doc.id, ...doc.data() }]
             break;
+          case 'new':
+            newDisneys=[...newDisneys,{id:doc.id,...doc.data()}]
+            break;
         }
         dispatch(
           setMovies({
-            recommend: recommends
+            recommend: recommends,
+            newDisney:newDisneys
           })
         )
       });
