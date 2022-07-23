@@ -30,6 +30,12 @@ function Detail() {
                         </div>
                     </GroupWathch>
                 </Controls>
+                <SubTitle>
+                    SubTitle
+                </SubTitle>
+                <Description>
+                    Description
+                </Description>
             </ContentMeta>
         </Container>
     )
@@ -110,6 +116,7 @@ font-size: 15px;
     padding:0 12px;
     font-size:12px;
     margin:0px 10px 0px 0px;
+    margin-left:15px;
     img{
         width:25px;
     }
@@ -157,6 +164,26 @@ border-radius: 50%;
 border: 2px solid white;
 img{
     width:100%;
+}
+`
+const SubTitle=styled.div`
+font-size:15px;
+min-hight:20px;
+margin-left:15px;
+
+@media(max-width:768px){
+    font-size:12px;
+}
+`
+const Description=styled.div`
+line-height:1.4;
+font-size:20px;
+padding:16px 0px;
+color:rgb(249,249,249);
+margin-left:15px;
+
+@media(max-width:768px){
+  font-size:14px;
 }
 `
 
