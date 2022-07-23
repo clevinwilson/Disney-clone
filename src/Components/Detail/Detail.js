@@ -17,9 +17,18 @@ function Detail() {
                         <span>Play</span>
                     </Player>
                     <Trailer>
-                        <img src='/images/play-icon-white.png'/>
+                        <img src='/images/play-icon-white.png' />
                         <span>Trailer</span>
                     </Trailer>
+                    <AddList>
+                        <span />
+                        <span />
+                    </AddList>
+                    <GroupWathch>
+                        <div>
+                            <img src='/images/group-icon.png'/>
+                        </div>
+                    </GroupWathch>
                 </Controls>
             </ContentMeta>
         </Container>
@@ -106,10 +115,49 @@ font-size: 15px;
     }
 }
 `
-const Trailer=styled(Player)`
+const Trailer = styled(Player)`
 background:rgb(0,0,0,0.3);
 border:1px solid rgb(249,249,249);
 color:rgb(249,249,249);
+`
+const AddList = styled.div`
+margin-left: 16px;
+    height: 53px;
+    width: 53px;
+    background: rgb(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: 2px solid white;
+    span{
+             background-color:rgb(249,249,249);
+             display:inline-block;
+             &:first-child{
+                 height:2px;
+                 transform:translate(1px,0px)rotate(0deg);
+                 width:16px;
+            }
+            &:nth-child(2){
+                height:16px;
+                transform: translatex(-8px) rotate(0deg);
+                width:2px;
+            }
+        }
+`
+const GroupWathch=styled.div`
+margin-left: 16px;
+height: 53px;
+width: 53px;
+background: rgb(0, 0, 0, 1.6);
+display: flex;
+justify-content: center;
+align-items: center;
+border-radius: 50%;
+border: 2px solid white;
+img{
+    width:100%;
+}
 `
 
 export default Detail
