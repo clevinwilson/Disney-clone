@@ -17,7 +17,7 @@ function Detail() {
         //         console.log(doc.id, " => ", doc.data());
         //     });
         // })
-        db.collection("movies").where("title", "==", "A tail of two kitties")
+        db.collection("movies").where("title", "==", id)
             .get()
             .then((querySnapshot) => {
                 console.log(querySnapshot);
@@ -211,7 +211,7 @@ font-size:20px;
 padding:16px 0px;
 color:rgb(249,249,249);
 margin-left:15px;
-
+max-width:800px;
 @media(max-width:768px){
   font-size:14px;
 }

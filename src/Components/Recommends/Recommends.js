@@ -14,7 +14,7 @@ function Recommends() {
                     movies && movies.map((movie, key) => {
                         return (
                             <Wrap key={key}>
-                                <Link to={'/detail/' + movie.id}>
+                                <Link to={'/detail/' + movie.title}>
                                     <img src={movie.cardImg} />
                                 </Link>
                             </Wrap>
