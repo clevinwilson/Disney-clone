@@ -57,7 +57,7 @@ function Header(props) {
     return (
         <Nav>
             <LogoContainer>
-                <Logo src='images/logo.svg' />
+                <Logo src='/images/logo.svg' />
             </LogoContainer>
             {
                 !username ?
@@ -142,6 +142,7 @@ border-radius: 50%;
 `
 
 const Nav = styled.div`
+position:fixed;
 display:flex;
 right:0;
 left:0;
@@ -150,6 +151,7 @@ background-color:rgb(9 11 19);
 height:70px;
 align-items: center;
 justify-content: space-between;
+z-index:1;
 `
 const LogoContainer = styled.a`
 padding: 0px;
