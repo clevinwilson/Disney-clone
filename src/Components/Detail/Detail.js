@@ -1,14 +1,44 @@
 import React from 'react'
 import styled from 'styled-components'
-
+import {useState,useEffect} from 'react';
+import {useParams} from 'react-router-dom';
+import { db } from '../Firebase/firebaseV8';
+import { collection, query, where, getDocs } from "firebase/firestore";
 function Detail() {
+    const {id}=useParams();
+    const [movieDetails,setMovieDetails]=useState({});
+
+    useEffect(()=>{
+
+        // const q = query(collection(db, "movies"), where("id", "==", id));
+        // getDocs(q).then((querySnapshot)=>{
+        //     querySnapshot.forEach((doc) => {
+        //         // doc.data() is never undefined for query doc snapshots
+        //         console.log(doc.id, " => ", doc.data());
+        //     });
+        // })
+        db.collection("movies").where("title", "==", "A tail of two kitties")
+            .get()
+            .then((querySnapshot) => {
+                console.log(querySnapshot);
+                querySnapshot.forEach((doc) => {
+                    setMovieDetails(doc.data())
+                });
+            })
+            .catch((error) => {
+                console.log("Error getting documents: ", error);
+            });
+
+
+
+    },[id])
     return (
         <Container>
             <Background>
-                <img src='https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/4E9E81584305009D6385F6178D4B6930E97CD6EC4A3B53C818400DEF778FFA9A/scale?width=1440&aspectRatio=1.78&format=jpeg' />
+                <img src={movieDetails.backgroundImg} />
             </Background>
             <ImageTitle>
-                <img src='https://prod-ripcut-delivery.disney-plus.net/v1/variant/disney/50B933E83609BEEFEDFA177A6D96DBFA7804C14F70A0B5AB314E892E65498ACF/scale?width=1440&aspectRatio=1.78' />
+                <img src={movieDetails.titleImg} />
             </ImageTitle>
             <ContentMeta>
                 <Controls>
@@ -31,10 +61,10 @@ function Detail() {
                     </GroupWathch>
                 </Controls>
                 <SubTitle>
-                    SubTitle
+                    {movieDetails.subTitle}
                 </SubTitle>
                 <Description>
-                    Description
+                    {movieDetails.description}
                 </Description>
             </ContentMeta>
         </Container>

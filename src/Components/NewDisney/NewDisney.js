@@ -14,7 +14,7 @@ function NewDisney() {
                     movies && movies.map((movie, key) => {
                         return (
                             <Wrap key={key}>
-                                <Link to={'/details/' + movie.div}>
+                                <Link to={'/detail/' + movie.id}>
                                     <img src={movie.cardImg} />
                                 </Link>
                             </Wrap>
